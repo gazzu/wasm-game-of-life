@@ -22,6 +22,8 @@ extern {
 }
 
 #[wasm_bindgen]
+
+/*
 pub fn greet(name: String) {
 	let mut start: String = "Hello ".to_owned();
 	let end: String = ", wasm-game-of-life!".to_owned();
@@ -29,3 +31,9 @@ pub fn greet(name: String) {
 	start.push_str(&end);
     alert(&start);
 }
+*/
+
+pub fn greet(name: &str) {
+    alert(&format!("Hello, {}!", name));
+}
+

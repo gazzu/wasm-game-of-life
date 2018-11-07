@@ -35,7 +35,14 @@ function passStringToWasm(arg) {
 */
 export function greet(arg0) {
     const [ptr0, len0] = passStringToWasm(arg0);
-    return wasm.greet(ptr0, len0);
+    try {
+        return wasm.greet(ptr0, len0);
+
+    } finally {
+        wasm.__wbindgen_free(ptr0, len0 * 1);
+
+    }
+
 }
 
 export function __wbindgen_throw(ptr, len) {
