@@ -1,6 +1,6 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
-extern crate js_sys;
+// extern crate js_sys;
 // extern crate fixedbitset;
 
 mod utils;
@@ -8,7 +8,7 @@ mod utils;
 use cfg_if::cfg_if;
 use wasm_bindgen::prelude::*;
 use std::fmt;
-use js_sys::Math;
+// use js_sys::Math;
 // use fixedbitset::FixedBitSet;
 
 #[wasm_bindgen]
@@ -18,9 +18,11 @@ extern {
 }
 
 // A macro to provide `println!(..)`-style syntax for `console.log` logging.
+/*
 macro_rules! log {
     ($($t:tt)*) => (log(&format!($($t)*)))
 }
+*/
 
 cfg_if! {
     // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -32,26 +34,21 @@ cfg_if! {
     }
 }
 
-impl fmt::Display for Universe {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for line in self.cells.as_slice().chunks(self.width as usize) {
-            for &cell in line {
-                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
-                write!(f, "{}", symbol)?;
-            }
-            write!(f, "\n")?;
-        }
-
-        Ok(())
-    }
-}
-
 #[wasm_bindgen]
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Cell {
     Dead = 0,
     Alive = 1,
+}
+
+impl Cell {
+    fn toggle(&mut self) {
+        *self = match *self {
+            Cell::Dead => Cell::Alive,
+            Cell::Alive => Cell::Dead,
+        };
+    }
 }
 
 #[wasm_bindgen]
@@ -89,6 +86,8 @@ impl Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn tick(&mut self) {
+        // let _timer = Timer::new("Universe::tick");
+
         let mut next = self.cells.clone();
 
         for row in 0..self.height {
@@ -97,10 +96,12 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
+                /*
                 log!(
                     "cell[{}, {}] is initially {:?} and has {} live neighbors",
                     row, col, cell, live_neighbors
                 );
+                */
 
                 let next_cell = match (cell, live_neighbors) {
                     // Rule 1: Any live cell with fewer than two live neighbours
@@ -120,7 +121,6 @@ impl Universe {
                 };
 
                 next[idx] = next_cell;
-
                 /*
                 next.set(idx, match next_cell {
                     Cell::Alive => true,
@@ -135,10 +135,19 @@ impl Universe {
 
     pub fn new() -> Universe {
         utils::set_panic_hook();
-        
-        let width = 64;
-        let height = 64;
 
+        let width = 128;
+        let height = 128;
+        let cells = (0..width * height)
+            .map(|i| {
+                if i % 2 == 0 || i % 7 == 0 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+        /*
         let cells = (0..width * height)
             .map(|_i| {
                 if Math::random() < 0.5 {
@@ -148,16 +157,13 @@ impl Universe {
                 }
             })
             .collect();
+        */
 
         Universe {
             width,
             height,
             cells,
         }
-    }
-
-    pub fn render(&self) -> String {
-        self.to_string()
     }
 
     pub fn width(&self) -> u32 {
@@ -171,5 +177,24 @@ impl Universe {
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
         // self.cells.as_slice().as_ptr()
+    }
+
+    pub fn toggle_cell(&mut self, row: u32, column: u32) {
+        let idx = self.get_index(row, column);
+        self.cells[idx].toggle();
+    }
+}
+
+impl fmt::Display for Universe {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        for line in self.cells.as_slice().chunks(self.width as usize) {
+            for &cell in line {
+                let symbol = if cell == Cell::Dead { '◻' } else { '◼' };
+                write!(f, "{}", symbol)?;
+            }
+            write!(f, "\n")?;
+        }
+
+        Ok(())
     }
 }

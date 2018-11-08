@@ -1,7 +1,11 @@
 /* tslint:disable */
 import * as wasm from './wasm_game_of_life_bg';
 
-const __wbg_log_55d0b01f9e295146_target = console.log;
+/**
+*/
+export const Cell = Object.freeze({ Dead:0,Alive:1, });
+
+const __wbg_error_cc95a3d302735ca3_target = console.error;
 
 let cachedTextDecoder = new TextDecoder('utf-8');
 
@@ -17,32 +21,6 @@ function getStringFromWasm(ptr, len) {
     return cachedTextDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
 }
 
-export function __wbg_log_55d0b01f9e295146(arg0, arg1) {
-    let varg0 = getStringFromWasm(arg0, arg1);
-    __wbg_log_55d0b01f9e295146_target(varg0);
-}
-/**
-*/
-export const Cell = Object.freeze({ Dead:0,Alive:1, });
-
-let cachedGlobalArgumentPtr = null;
-function globalArgumentPtr() {
-    if (cachedGlobalArgumentPtr === null) {
-        cachedGlobalArgumentPtr = wasm.__wbindgen_global_argument_ptr();
-    }
-    return cachedGlobalArgumentPtr;
-}
-
-let cachegetUint32Memory = null;
-function getUint32Memory() {
-    if (cachegetUint32Memory === null || cachegetUint32Memory.buffer !== wasm.memory.buffer) {
-        cachegetUint32Memory = new Uint32Array(wasm.memory.buffer);
-    }
-    return cachegetUint32Memory;
-}
-
-const __wbg_error_cc95a3d302735ca3_target = console.error;
-
 export function __wbg_error_cc95a3d302735ca3(arg0, arg1) {
     let varg0 = getStringFromWasm(arg0, arg1);
 
@@ -50,14 +28,6 @@ export function __wbg_error_cc95a3d302735ca3(arg0, arg1) {
     wasm.__wbindgen_free(arg0, arg1 * 1);
 
     __wbg_error_cc95a3d302735ca3_target(varg0);
-}
-
-const __wbg_random_86efc8986c8a8805_target = (typeof Math === 'undefined' ? null : Math.random || function() {
-    throw new Error(`wasm-bindgen: Math.random does not exist`);
-}).bind(Math);
-
-export function __wbg_random_86efc8986c8a8805() {
-    return __wbg_random_86efc8986c8a8805_target();
 }
 
 function freeUniverse(ptr) {
@@ -94,21 +64,6 @@ export class Universe {
         return Universe.__wrap(wasm.universe_new());
     }
     /**
-    * @returns {string}
-    */
-    render() {
-        const retptr = globalArgumentPtr();
-        wasm.universe_render(retptr, this.ptr);
-        const mem = getUint32Memory();
-        const rustptr = mem[retptr / 4];
-        const rustlen = mem[retptr / 4 + 1];
-
-        const realRet = getStringFromWasm(rustptr, rustlen).slice();
-        wasm.__wbindgen_free(rustptr, rustlen * 1);
-        return realRet;
-
-    }
-    /**
     * @returns {number}
     */
     width() {
@@ -125,6 +80,14 @@ export class Universe {
     */
     cells() {
         return wasm.universe_cells(this.ptr);
+    }
+    /**
+    * @param {number} arg0
+    * @param {number} arg1
+    * @returns {void}
+    */
+    toggle_cell(arg0, arg1) {
+        return wasm.universe_toggle_cell(this.ptr, arg0, arg1);
     }
 }
 

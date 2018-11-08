@@ -7,12 +7,12 @@ free(): void;
 
 static  new(): Universe;
 
- render(): string;
-
  width(): number;
 
  height(): number;
 
  cells(): number;
+
+ toggle_cell(arg0: number, arg1: number): void;
 
 }
