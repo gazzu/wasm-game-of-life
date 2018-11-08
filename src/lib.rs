@@ -1,12 +1,15 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
 extern crate js_sys;
+// extern crate fixedbitset;
 
 mod utils;
 
 use cfg_if::cfg_if;
 use wasm_bindgen::prelude::*;
 use std::fmt;
+use js_sys::Math;
+// use fixedbitset::FixedBitSet;
 
 cfg_if! {
     // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -45,6 +48,7 @@ pub struct Universe {
     width: u32,
     height: u32,
     cells: Vec<Cell>,
+    // cells: FixedBitSet,
 }
 
 impl Universe {
@@ -100,6 +104,13 @@ impl Universe {
                 };
 
                 next[idx] = next_cell;
+
+                /*
+                next.set(idx, match next_cell {
+                    Cell::Alive => true,
+                    Cell::Dead => false,
+                });
+                */
             }
         }
 
@@ -112,7 +123,7 @@ impl Universe {
 
         let cells = (0..width * height)
             .map(|_i| {
-                if js_sys::Math::random() < 0.5 {
+                if Math::random() < 0.5 {
                     Cell::Alive
                 } else {
                     Cell::Dead
@@ -141,5 +152,6 @@ impl Universe {
 
     pub fn cells(&self) -> *const Cell {
         self.cells.as_ptr()
+        // self.cells.as_slice().as_ptr()
     }
 }
