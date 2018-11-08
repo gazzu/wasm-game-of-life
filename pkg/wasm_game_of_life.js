@@ -35,6 +35,14 @@ function getUint32Memory() {
     return cachegetUint32Memory;
 }
 
+const __wbg_random_86efc8986c8a8805_target = (typeof Math === 'undefined' ? null : Math.random || function() {
+    throw new Error(`wasm-bindgen: Math.random does not exist`);
+}).bind(Math);
+
+export function __wbg_random_86efc8986c8a8805() {
+    return __wbg_random_86efc8986c8a8805_target();
+}
+
 function freeUniverse(ptr) {
 
     wasm.__wbg_universe_free(ptr);
