@@ -1,6 +1,6 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
-// extern crate js_sys;
+extern crate js_sys;
 // extern crate fixedbitset;
 
 mod utils;
@@ -8,7 +8,7 @@ mod utils;
 use cfg_if::cfg_if;
 use wasm_bindgen::prelude::*;
 use std::fmt;
-// use js_sys::Math;
+use js_sys::Math;
 // use fixedbitset::FixedBitSet;
 
 #[wasm_bindgen]
@@ -138,6 +138,7 @@ impl Universe {
 
         let width = 128;
         let height = 128;
+        /*
         let cells = (0..width * height)
             .map(|i| {
                 if i % 2 == 0 || i % 7 == 0 {
@@ -147,7 +148,7 @@ impl Universe {
                 }
             })
             .collect();
-        /*
+        */
         let cells = (0..width * height)
             .map(|_i| {
                 if Math::random() < 0.5 {
@@ -157,7 +158,6 @@ impl Universe {
                 }
             })
             .collect();
-        */
 
         Universe {
             width,

@@ -30,6 +30,14 @@ export function __wbg_error_cc95a3d302735ca3(arg0, arg1) {
     __wbg_error_cc95a3d302735ca3_target(varg0);
 }
 
+const __wbg_random_86efc8986c8a8805_target = (typeof Math === 'undefined' ? null : Math.random || function() {
+    throw new Error(`wasm-bindgen: Math.random does not exist`);
+}).bind(Math);
+
+export function __wbg_random_86efc8986c8a8805() {
+    return __wbg_random_86efc8986c8a8805_target();
+}
+
 function freeUniverse(ptr) {
 
     wasm.__wbg_universe_free(ptr);
