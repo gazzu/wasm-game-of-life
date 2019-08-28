@@ -52,3 +52,29 @@ wasm-pack test --headless --firefox
 ```
 wasm-pack publish
 ```
+
+### Putting into a web page
+
+```
+npm init wasm-app www
+```
+
+### Go to www subdir
+
+```
+cd wwww
+```
+
+### Install the dependencies
+
+```
+npm install
+```
+
+### Serving Locally
+
+```
+npm run start
+```
+
+### Go to page http://localhost:8080/
