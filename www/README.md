@@ -1,3 +1,9 @@
+cd
+wasm-pack build
+
+cd www
+npm start
+
 # create-wasm-app
 > an npm init project for generating a project that consumes rust-generated wasm via webpack
 
