@@ -77,4 +77,26 @@ npm install
 npm run start
 ```
 
-### Go to page http://localhost:8080/
+### Go to page
+
+#### Windows
+
+```
+start http://localhost:8080
+```
+
+#### Linux
+
+```
+firefox http://localhost:8080
+```
+
+#### MacOs
+
+```
+open -a firefox 'http://localhost:8080'
+```
+
+### Tutorial from Rust and WebAssembly
+
+[Implementing Conway's Game of Life](https://rustwasm.github.io/docs/book/game-of-life/implementing.html)
