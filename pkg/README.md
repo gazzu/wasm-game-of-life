@@ -52,3 +52,57 @@ wasm-pack test --headless --firefox
 ```
 wasm-pack publish
 ```
+
+### Remove dir www if already exists
+
+```
+rm -rf wwww
+```
+
+### Putting into a web page
+
+```
+npm init wasm-app www
+```
+
+### Go to www subdir
+
+```
+cd wwww
+```
+
+### Install the dependencies
+
+```
+npm install
+```
+
+### Serving Locally
+
+```
+npm run start
+```
+
+### Go to page
+
+#### Windows
+
+```
+start http://localhost:8080
+```
+
+#### Linux
+
+```
+firefox http://localhost:8080npm
+```
+
+#### MacOs
+
+```
+open -a firefox 'http://localhost:8080'
+```
+
+### Tutorial from Rust and WebAssembly
+
+[Implementing Conway's Game of Life](https://rustwasm.github.io/docs/book/game-of-life/implementing.html)

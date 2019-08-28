@@ -80,3 +80,5 @@ Nov 09 10:59:38.002 ERRO Compiling your crate to WebAssembly
 Nov 09 11:00:10.698 ERRO Compiling your crate to WebAssembly
 Aug 28 11:03:08.057 ERRO Must specify at least one of `--node`, `--chrome`, `--firefox`, or `--safari`
 Aug 28 11:04:12.979 ERRO Running Wasm tests with wasm-bindgen-test failed
+Aug 28 12:32:49.831 ERRO Compiling your crate to WebAssembly
+Aug 28 12:38:03.978 ERRO Compiling your crate to WebAssembly

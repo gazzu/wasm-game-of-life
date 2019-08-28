@@ -53,6 +53,12 @@ wasm-pack test --headless --firefox
 wasm-pack publish
 ```
 
+### Remove dir www if already exists
+
+```
+rm -rf wwww
+```
+
 ### Putting into a web page
 
 ```
@@ -88,7 +94,7 @@ start http://localhost:8080
 #### Linux
 
 ```
-firefox http://localhost:8080
+firefox http://localhost:8080npm
 ```
 
 #### MacOs
